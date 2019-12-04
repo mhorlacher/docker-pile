@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+
+  # RStudio
+  rstudio:
+    image: rstudio
+    environment:
+      PASSWORD: "whypass"
+    ports:
+      - "8787:8787"
+    volumes:
+      - type: bind
+        source: ./data
+        target: /home/rstudio/data
+      - type: bind
+        source: ./rscripts
+        target: /home/rstudio/rscripts
+      - rlibrary:/Archive
+
+volumes:
+  rlibrary:
+    driver: local
