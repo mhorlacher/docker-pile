@@ -3,9 +3,11 @@ services:
 
   # RStudio
   rstudio:
-    image: rstudio
+    image: rstudio-3.6.1-deseq
+    build:
+      context: ../
     environment:
-      PASSWORD: "whypass"
+      PASSWORD: "pass"
     ports:
       - "8787:8787"
     volumes:
@@ -15,8 +17,15 @@ services:
       - type: bind
         source: ./rscripts
         target: /home/rstudio/rscripts
-      - rlibrary:/Archive
+      - type: volume
+        source: r-library
+        target: /usr/local/lib/R/library
+      - type: volume
+        source: r-site-library
+        target: /usr/local/lib/R/site-library
 
 volumes:
-  rlibrary:
+  r-library:
+    driver: local
+  r-site-library:
     driver: local
