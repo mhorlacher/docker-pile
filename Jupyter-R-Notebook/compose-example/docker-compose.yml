@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+
+  # Jupyter-R-Notebook
+  rstudio:
+    image: jupyter-r-notebook
+    build:
+      context: ../
+    ports:
+      - "8888:8888"
+    volumes:
+      - type: bind
+        source: ./notebook-workspace
+        target: /home/jovyan
+      - type: bind
+        source: ./data
+        target: /data
+      - type: volume
+        source: r-library
+        target: /usr/local/lib/R/library
+      - type: volume
+        source: r-site-library
+        target: /usr/local/lib/R/site-library
+
+volumes:
+  r-library:
+    driver: local
+  r-site-library:
+    driver: local
